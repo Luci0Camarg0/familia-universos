@@ -4,7 +4,7 @@ layout: default
 <article class="materia">
   <header class="materia-topo">
     <a class="voltar" href="{{ '/' | relative_url }}">← Todas as notícias</a>
-    {% if page.categoria %}<span class="chapeu">{{ page.categoria }}</span>{% endif %}
+    {% if page.categoria %}<p class="materia-cat"><span class="chapeu">{{ page.categoria }}</span></p>{% endif %}
     <h1>{{ page.title }}</h1>
     {% if page.resumo %}<p class="linha-fina">{{ page.resumo }}</p>{% endif %}
     <p class="materia-meta">

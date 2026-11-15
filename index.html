@@ -6,9 +6,8 @@ scripts:
 ---
 <section class="capa">
   <div class="capa-dentro">
-    <p class="capa-sobre">Blog oficial · desde 2017 transformando vidas pela arte</p>
-    <h1 class="capa-titulo">Família <span>UniVersos</span></h1>
-    <p class="capa-texto">Radar de shows da região de Rio Preto, agenda do grupo, anexos e beats num lugar só.</p>
+    <h1 class="capa-titulo">Família UniVersos</h1>
+    <p class="capa-texto">Rap, periferia e arte desde 2017. Radar de shows da região de Rio Preto, agenda do grupo, anexos e beats.</p>
   </div>
 </section>
 
@@ -31,10 +30,10 @@ scripts:
     {% for post in site.posts %}
       <article class="card-noticia{% if forloop.first %} destaque{% endif %}" data-cat="{{ post.categoria | slugify }}">
         <a class="card-link" href="{{ post.url | relative_url }}">
-          {% if post.categoria %}<span class="chapeu">{{ post.categoria }}</span>{% endif %}
+          <p class="card-meta"><time datetime="{{ post.date | date_to_xmlschema }}">{% include data-br.html data=post.date %}</time>{% if post.categoria %} · <span class="chapeu">{{ post.categoria }}</span>{% endif %}</p>
           <h3>{{ post.title }}</h3>
           <p>{{ post.resumo | default: post.excerpt | strip_html | truncate: 220 }}</p>
-          <time datetime="{{ post.date | date_to_xmlschema }}">{% include data-br.html data=post.date %}</time>
+          <span class="leia">Leia mais →</span>
         </a>
       </article>
     {% endfor %}
