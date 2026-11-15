@@ -1,0 +1,28 @@
+---
+layout: default
+title: Anexos
+scripts:
+  - /assets/js/arquivos.js
+---
+<section class="pagina">
+  <header class="pagina-topo">
+    <h1 class="secao-titulo grande">Anexos</h1>
+    <p>Documentos do grupo em PDF e Word: contratos, releases, inscrições, riders.</p>
+  </header>
+
+  <div class="arquivos"
+       data-arquivos="anexos"
+       data-pasta="arquivos/anexos"
+       data-aceita=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+       data-extensoes="pdf,doc,docx"
+       data-rotulo="anexo">
+    <div class="arquivos-barra">
+      <button class="botao" type="button" data-adicionar>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        Adicionar anexo
+      </button>
+      <span class="dica">Aceita PDF e Word (.doc, .docx), até 50 MB. <b>Tudo aqui fica público</b>: não suba documento com CPF, RG ou dados bancários.</span>
+    </div>
+    <div class="lista-arquivos" data-lista><p class="carregando">Carregando…</p></div>
+  </div>
+</section>

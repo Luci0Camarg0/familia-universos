@@ -1,0 +1,13 @@
+{
+  "itens": [
+    {
+      "id": "exemplo1",
+      "tipo": "Ensaio",
+      "titulo": "Ensaio geral (exemplo: pode editar ou apagar)",
+      "data": "2026-11-21",
+      "hora": "15:00",
+      "local": "Instituto Família UniVersos, Parque da Cidadania",
+      "obs": ""
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+---
+layout: default
+---
+<article class="materia">
+  <header class="materia-topo">
+    <a class="voltar" href="{{ '/' | relative_url }}">← Todas as notícias</a>
+    {% if page.categoria %}<span class="chapeu">{{ page.categoria }}</span>{% endif %}
+    <h1>{{ page.title }}</h1>
+    {% if page.resumo %}<p class="linha-fina">{{ page.resumo }}</p>{% endif %}
+    <p class="materia-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{% include data-br.html data=page.date %}</time>
+      · Radar de shows da Família UniVersos
+    </p>
+  </header>
+
+  <div class="materia-corpo">
+    {{ content }}
+  </div>
+
+  {% if page.fontes %}
+  <aside class="fontes">
+    <h2>Fontes</h2>
+    <ul>
+      {% for f in page.fontes %}<li><a href="{{ f.url }}" rel="noopener" target="_blank">{{ f.nome }}</a></li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
+
+  <nav class="materia-nav" aria-label="Outras notícias">
+    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}"><small>Anterior</small>{{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+    {% if page.next %}<a class="prox" href="{{ page.next.url | relative_url }}"><small>Próxima</small>{{ page.next.title }}</a>{% endif %}
+  </nav>
+</article>

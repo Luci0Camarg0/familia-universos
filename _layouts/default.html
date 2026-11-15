@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.resumo | default: page.description | default: site.description | strip_html | escape }}">
+  <meta property="og:title" content="{{ page.title | default: site.title | escape }}">
+  <meta property="og:description" content="{{ page.resumo | default: site.description | strip_html | escape }}">
+  <meta name="theme-color" content="#0d0e0e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230d0e0e'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-size='34' font-weight='900' text-anchor='middle' fill='%23e8b21c'%3EFU%3C/text%3E%3C/svg%3E">
+  <script>
+    window.FU = {
+      owner: "{{ site.github_owner }}",
+      repo: "{{ site.github_repo }}",
+      branch: "{{ site.github_branch }}",
+      base: "{{ site.baseurl }}"
+    };
+  </script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <header class="topo">
+    <div class="topo-dentro">
+      <a class="marca" href="{{ '/' | relative_url }}" aria-label="Família UniVersos, página inicial">
+        <span class="marca-nome">Família <b>UniVersos</b></span>
+        <span class="marca-sub">Rap · São José do Rio Preto</span>
+      </a>
+      <button class="menu-botao" type="button" aria-expanded="false" aria-controls="menu" data-menu>Menu</button>
+      <nav id="menu" class="menu" aria-label="Seções">
+        {% assign url = page.url %}
+        <a href="{{ '/' | relative_url }}" {% if url == '/' or page.layout == 'post' %}aria-current="page"{% endif %}>Notícias</a>
+        <a href="{{ '/agenda/' | relative_url }}" {% if url == '/agenda/' %}aria-current="page"{% endif %}>Agenda</a>
+        <a href="{{ '/anexos/' | relative_url }}" {% if url == '/anexos/' %}aria-current="page"{% endif %}>Anexos</a>
+        <a href="{{ '/beats/' | relative_url }}" {% if url == '/beats/' %}aria-current="page"{% endif %}>Beats</a>
+        <a href="{{ '/ajuda/' | relative_url }}" {% if url == '/ajuda/' %}aria-current="page"{% endif %}>Como usar</a>
+        <button class="botao-entrar" type="button" data-entrar>Entrar</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    {{ content }}
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape-dentro">
+      <p><b>Família UniVersos</b> · grupo de rap e projeto social desde 2017 · São José do Rio Preto/SP</p>
+      <p class="rodape-links">
+        <a href="https://www.instagram.com/familiauniversos/" rel="noopener" target="_blank">@familiauniversos</a>
+        <a href="https://www.instagram.com/asmeninasdorap/" rel="noopener" target="_blank">@asmeninasdorap</a>
+        <a href="https://www.instagram.com/institutofamiliauniversos/" rel="noopener" target="_blank">@institutofamiliauniversos</a>
+      </p>
+    </div>
+  </footer>
+
+  {% include entrar.html %}
+  <div class="aviso" role="status" aria-live="polite" data-aviso hidden></div>
+
+  <script src="{{ '/assets/js/github.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+  {% for s in page.scripts %}<script src="{{ s | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+  {% endfor %}
+</body>
+</html>

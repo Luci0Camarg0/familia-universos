@@ -1,0 +1,28 @@
+---
+layout: default
+title: Beats
+scripts:
+  - /assets/js/arquivos.js
+---
+<section class="pagina">
+  <header class="pagina-topo">
+    <h1 class="secao-titulo grande">Beats</h1>
+    <p>Instrumentais do grupo para ouvir, ensaiar e baixar.</p>
+  </header>
+
+  <div class="arquivos"
+       data-arquivos="beats"
+       data-pasta="arquivos/beats"
+       data-aceita=".mp3,.wav,.m4a,.aac,.ogg,.flac,audio/*"
+       data-extensoes="mp3,wav,m4a,aac,ogg,flac"
+       data-rotulo="instrumental">
+    <div class="arquivos-barra">
+      <button class="botao" type="button" data-adicionar>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        Adicionar instrumental
+      </button>
+      <span class="dica">Aceita MP3, WAV, M4A, AAC, OGG e FLAC, até 50 MB. Prefira MP3: um WAV de 4 minutos já passa de 40 MB.</span>
+    </div>
+    <div class="lista-arquivos" data-lista><p class="carregando">Carregando…</p></div>
+  </div>
+</section>

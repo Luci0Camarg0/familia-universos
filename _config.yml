@@ -1,0 +1,26 @@
+title: Família UniVersos
+description: Notícias, agenda, anexos e beats do grupo de rap Família UniVersos, de São José do Rio Preto/SP.
+lang: pt-BR
+timezone: America/Sao_Paulo
+
+# Endereço do blog no GitHub Pages
+url: "https://luci0camarg0.github.io"
+baseurl: "/familia-universos"
+
+# Repositório onde o blog salva anexos, beats e a agenda
+github_owner: Luci0Camarg0
+github_repo: familia-universos
+github_branch: main
+
+permalink: /noticias/:year/:month/:day/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+exclude:
+  - README.md
+  - COMO-PUBLICAR.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
