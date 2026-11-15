@@ -5,7 +5,7 @@ title: Como usar
 <article class="materia" markdown="1">
 <header class="materia-topo">
 <h1>Como usar o blog</h1>
-<p class="linha-fina">Qualquer pessoa pode ler as notícias, ver a agenda, abrir os anexos e ouvir os beats. Para <b>adicionar ou editar</b>, é preciso entrar na área do grupo com uma chave do GitHub.</p>
+<p class="linha-fina">Qualquer pessoa pode ler as notícias, ver a agenda, abrir os anexos e ouvir os beats. Não tem login: os botões de adicionar e editar ficam sempre à mostra. Só na <b>primeira vez</b> que um aparelho for mexer, o blog pede a chave do GitHub do grupo, e depois nunca mais.</p>
 </header>
 
 <div class="materia-corpo" markdown="1">
@@ -14,7 +14,7 @@ title: Como usar
 
 O blog fica hospedado de graça no GitHub. Cada anexo, beat ou data que você salva vira um arquivo guardado lá. A chave é o que prova para o GitHub que é alguém do grupo mexendo, e não um visitante qualquer. Sem ela, ninguém de fora consegue apagar ou trocar nada.
 
-A chave fica salva **só no aparelho** onde você entrou (celular ou computador). Em outro aparelho, é só colar a mesma chave de novo.
+A chave fica salva **só no aparelho** onde você colou (celular ou computador). Em outro aparelho, ele pede a mesma chave uma vez.
 
 ## Criar a chave (uma vez só) {#chave}
 
@@ -26,7 +26,7 @@ A chave fica salva **só no aparelho** onde você entrou (celular ou computador)
 <li>Em <b>Repository access</b>, marque <b>Only select repositories</b> e escolha <code>familia-universos</code>.</li>
 <li>Em <b>Permissions</b>, abra <b>Repository permissions</b>, procure <b>Contents</b> e mude para <b>Read and write</b>.</li>
 <li>Desça e clique em <b>Generate token</b>. Copie o código que começa com <code>github_pat_</code>. Ele só aparece uma vez: guarde num lugar seguro, como as notas do celular.</li>
-<li>Volte ao blog, clique em <b>Entrar</b> (no topo), cole a chave e pronto.</li>
+<li>Volte ao blog e clique em qualquer botão de adicionar ou editar. Na janelinha que abrir, cole a chave e clique em <b>Liberar</b>. Pronto: neste aparelho o blog não pede mais.</li>
 </ol>
 
 > **Cuidado:** a chave funciona como uma senha do blog. Só passe para quem é do grupo e pode mexer no conteúdo. Se ela vazar, apague em [github.com/settings/personal-access-tokens](https://github.com/settings/personal-access-tokens) e crie outra.

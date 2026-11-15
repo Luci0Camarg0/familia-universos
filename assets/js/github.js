@@ -64,11 +64,6 @@
   function conectado() { return !!token(); }
 
   function avisarMudanca() {
-    document.documentElement.classList.toggle('editor', conectado());
-    document.querySelectorAll('[data-entrar].botao-entrar').forEach(function (b) {
-      b.textContent = conectado() ? 'Conectado' : 'Entrar';
-      b.classList.toggle('ativo', conectado());
-    });
     document.dispatchEvent(new CustomEvent('fu:sessao', { detail: { conectado: conectado() } }));
   }
 
@@ -199,10 +194,11 @@
     guardar(CHAVE_TOKEN, null);
     guardar(CHAVE_NOME, null);
     avisarMudanca();
-    if (silencioso) aviso('Sua chave do GitHub venceu. Entre de novo para editar.', 'erro');
+    if (silencioso) aviso('A chave do GitHub deste aparelho venceu. Na próxima edição o blog pede uma nova.', 'erro');
   }
 
-  // ---------- janela "Área do grupo" ----------
+  // ---------- janela da chave (aparece só uma vez por aparelho) ----------
+  var depois = null;
   function prepararJanela() {
     var janela = document.querySelector('[data-janela-entrar]');
     if (!janela) return;
@@ -211,24 +207,15 @@
     var enviar = janela.querySelector('[data-entrar-enviar]');
 
     function mostrar() {
-      var ok = conectado();
-      janela.querySelector('[data-entrar-desconectado]').hidden = ok;
-      janela.querySelector('[data-entrar-conectado]').hidden = !ok;
-      janela.querySelector('[data-entrar-nome]').textContent = ler(CHAVE_NOME) || 'grupo';
       erro.hidden = true;
-      erro.classList.remove('erro-info');
       if (janela.open) return;
       if (typeof janela.showModal === 'function') janela.showModal(); else janela.setAttribute('open', '');
-      if (!ok) setTimeout(function () { form.chave.focus(); }, 30);
+      setTimeout(function () { form.chave.focus(); }, 30);
     }
-    function fechar() { if (janela.close) janela.close(); else janela.removeAttribute('open'); }
+    function fechar() { depois = null; if (janela.close) janela.close(); else janela.removeAttribute('open'); }
 
-    document.addEventListener('click', function (e) {
-      if (e.target.closest('[data-entrar]')) { e.preventDefault(); mostrar(); }
-    });
     janela.querySelectorAll('[data-fechar]').forEach(function (b) { b.addEventListener('click', fechar); });
     janela.addEventListener('click', function (e) { if (e.target === janela) fechar(); });
-    janela.querySelector('[data-sair]').addEventListener('click', function () { sair(); fechar(); aviso('Você saiu da área do grupo neste aparelho.'); });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -236,22 +223,27 @@
       enviar.disabled = true;
       enviar.textContent = 'Conferindo…';
       entrar(form.chave.value).then(function () {
+        var continuar = depois;
         form.reset();
         fechar();
-        aviso('Pronto! Agora você pode adicionar e editar.', 'ok');
+        aviso('Pronto! Neste aparelho o blog não pede mais a chave.', 'ok');
+        if (continuar) continuar();
       }).catch(function (err) {
         erro.textContent = err.message;
         erro.hidden = false;
       }).then(function () {
         enviar.disabled = false;
-        enviar.textContent = 'Entrar';
+        enviar.textContent = 'Liberar';
       });
     });
 
-    FU.pedirEntrada = function (motivo) {
-      mostrar();
-      if (motivo && !conectado()) { erro.textContent = motivo; erro.hidden = false; erro.classList.add('erro-info'); }
-    };
+    FU.pedirChave = function (continuar) { depois = continuar || null; mostrar(); };
+  }
+
+  // Executa uma ação de edição. Se este aparelho ainda não tem a chave, pede uma vez e continua.
+  function editar(acao) {
+    if (conectado()) return acao();
+    FU.pedirChave(acao);
   }
 
   // ---------- menu do celular ----------
@@ -278,7 +270,8 @@
   FU.arquivoParaBase64 = arquivoParaBase64;
   FU.mensagemDeErro = mensagemDeErro;
   FU.sair = sair;
-  FU.pedirEntrada = function () {};
+  FU.editar = editar;
+  FU.pedirChave = function () {};
 
   document.addEventListener('DOMContentLoaded', function () {
     prepararMenu();

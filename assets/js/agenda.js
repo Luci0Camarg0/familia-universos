@@ -45,7 +45,7 @@
     var self = this;
     el.addEventListener('click', function (e) { self.clique(e); });
     el.addEventListener('submit', function (e) { e.preventDefault(); self.salvar(e.target); });
-    document.addEventListener('fu:sessao', function () { self.carregar(); });
+    document.addEventListener('fu:sessao', function () { if (!self.rascunho && !self.editando) self.carregar(); });
     this.carregar();
   }
 
@@ -69,7 +69,6 @@
     var h = '';
     h += '<div class="agenda-barra">';
     h += '<button type="button" class="botao botao-pequeno" data-acao="novo"' + (this.rascunho && !this.rascunho._dup ? ' hidden' : '') + '>+ Nova data</button>';
-    if (!editor) h += '<span class="dica">Para editar, <button type="button" class="link-botao" data-entrar>entre na área do grupo</button>.</span>';
     h += '</div>';
 
     if (this.rascunho && !this.rascunho._dup) h += this.formulario(this.rascunho, true);
@@ -109,7 +108,7 @@
       h += '<h3>' + esc(i.titulo) + '</h3>';
       h += '<p class="evento-quando">' + esc(quando) + (i.hora ? ' · ' + esc(i.hora) : '') + (i.local ? ' · ' + esc(i.local) : '') + '</p>';
       if (i.obs) h += '<p class="evento-obs">' + esc(i.obs) + '</p>';
-      if (editor) {
+      {
         h += '<div class="evento-acoes">';
         h += '<button type="button" data-acao="editar" data-id="' + esc(i.id) + '">Editar</button>';
         h += '<button type="button" data-acao="duplicar" data-id="' + esc(i.id) + '">Duplicar</button>';
@@ -151,7 +150,8 @@
     var item = this.itens.filter(function (i) { return i.id === id; })[0];
 
     if (acao !== 'cancelar' && !FU.conectado()) {
-      FU.pedirEntrada('Para mexer na agenda, entre com a chave do GitHub.');
+      var self = this;
+      FU.editar(function () { self.clique(e); });
       return;
     }
     if (acao === 'novo') {

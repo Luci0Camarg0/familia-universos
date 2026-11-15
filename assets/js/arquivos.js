@@ -43,7 +43,7 @@
     el.querySelector('[data-adicionar]').addEventListener('click', function () { self.abrirEnvio(); });
     this.lista.addEventListener('click', function (e) {
       var b = e.target.closest('[data-apagar]');
-      if (b) self.apagar(b.getAttribute('data-apagar'));
+      if (b) FU.editar(function () { self.apagar(b.getAttribute('data-apagar')); });
     });
     document.addEventListener('fu:sessao', function () { self.carregar(); });
     this.carregar();
@@ -93,7 +93,7 @@
       h += '<div class="item-acoes">';
       if (ext === 'PDF') h += '<a class="botao botao-pequeno" href="' + esc(link) + '" target="_blank" rel="noopener">Abrir</a>';
       h += '<a class="botao botao-pequeno botao-linha" href="' + esc(link) + '" download>Baixar</a>';
-      if (editor) h += '<button type="button" class="botao botao-pequeno botao-perigo" data-apagar="' + esc(i.id) + '">Apagar</button>';
+      h += '<button type="button" class="botao botao-pequeno botao-perigo" data-apagar="' + esc(i.id) + '">Apagar</button>';
       h += '</div></li>';
     });
     h += '</ul>';
@@ -103,7 +103,8 @@
   // ---------- enviar ----------
   Arquivos.prototype.abrirEnvio = function () {
     if (!FU.conectado()) {
-      FU.pedirEntrada('Para adicionar ' + this.rotulo + ', entre com a chave do GitHub.');
+      var self0 = this;
+      FU.editar(function () { self0.abrirEnvio(); });
       return;
     }
     if (this.el.querySelector('.envio')) { this.el.querySelector('.envio input[type=file]').click(); return; }

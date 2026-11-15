@@ -1,29 +1,19 @@
 <dialog class="janela" data-janela-entrar aria-labelledby="entrar-titulo">
   <form method="dialog" class="janela-dentro" data-form-entrar>
     <div class="janela-topo">
-      <h2 id="entrar-titulo">Área do grupo</h2>
+      <h2 id="entrar-titulo">Só falta a chave</h2>
       <button class="fechar" type="button" value="cancel" data-fechar aria-label="Fechar">×</button>
     </div>
-
-    <div data-entrar-desconectado>
-      <p>Para <b>adicionar anexos, beats e datas</b>, cole aqui a sua chave do GitHub. Quem só visita o blog não precisa disso.</p>
-      <label class="campo">
-        <span>Chave do GitHub</span>
-        <input type="password" name="chave" autocomplete="off" spellcheck="false" placeholder="github_pat_..." required>
-      </label>
-      <p class="dica">Ainda não tem a chave? <a href="{{ '/ajuda/#chave' | relative_url }}">Veja como criar em 2 minutos</a>. Ela fica salva só neste aparelho.</p>
-      <p class="erro" data-entrar-erro hidden></p>
-      <div class="acoes">
-        <button class="botao" type="submit" data-entrar-enviar>Entrar</button>
-      </div>
-    </div>
-
-    <div data-entrar-conectado hidden>
-      <p>Você está conectado como <b data-entrar-nome>—</b>. Os botões de adicionar, editar e apagar estão liberados neste aparelho.</p>
-      <div class="acoes">
-        <button class="botao botao-linha" type="button" data-sair>Sair deste aparelho</button>
-        <button class="botao" type="button" data-fechar>Fechar</button>
-      </div>
+    <p>É a primeira vez que este aparelho mexe no blog. Cole a chave do GitHub do grupo <b>uma vez só</b>: depois disso, aqui, o blog nunca mais pede.</p>
+    <label class="campo">
+      <span>Chave do GitHub</span>
+      <input type="password" name="chave" autocomplete="off" spellcheck="false" placeholder="github_pat_..." required>
+    </label>
+    <p class="dica">Ainda não tem a chave? <a href="{{ '/ajuda/#chave' | relative_url }}">Veja como criar em 2 minutos</a>.</p>
+    <p class="erro" data-entrar-erro hidden></p>
+    <div class="acoes">
+      <button class="botao botao-linha" type="button" data-fechar>Agora não</button>
+      <button class="botao" type="submit" data-entrar-enviar>Liberar</button>
     </div>
   </form>
 </dialog>
