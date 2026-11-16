@@ -82,6 +82,7 @@
       if (i.enviado_em) meta.push('enviado em ' + dataBR(i.enviado_em));
 
       h += '<li class="item-arquivo item-' + self.tipo + '">';
+      if (self.tipo === 'beats') h += '<label class="item-marcar" title="Colocar no setlist"><input type="checkbox" data-setlist="' + esc(i.id) + '"><span class="sr">Colocar ' + esc(i.titulo) + ' no setlist</span></label>';
       if (self.tipo === 'anexos') h += '<span class="item-icone ext-' + esc(ext.toLowerCase()) + '">' + ICONE_DOC + '<small>' + esc(ext) + '</small></span>';
       h += '<div class="item-info">';
       h += '<h3>' + esc(i.titulo) + '</h3>';
@@ -98,6 +99,7 @@
     });
     h += '</ul>';
     this.lista.innerHTML = h;
+    document.dispatchEvent(new CustomEvent('fu:arquivos', { detail: { tipo: this.tipo, itens: this.itens } }));
   };
 
   // ---------- enviar ----------

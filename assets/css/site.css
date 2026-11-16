@@ -329,3 +329,36 @@ img { max-width: 100%; }
   .materia-nav { grid-template-columns: 1fr; }
   .materia-nav .prox { text-align: left; }
 }
+
+/* ---------- setlist ---------- */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.setlist { background: var(--fundo-2); border: 1px solid var(--linha); border-radius: 3px; padding: 22px 24px; margin-bottom: 40px; }
+.setlist-topo { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+.setlist-topo .dica { font-size: 13px; }
+.setlist-lista { list-style: none; margin: 14px 0 0; padding: 0; }
+.vazio-setlist .setlist-lista { margin: 0; }
+.setlist-item { display: flex; align-items: center; gap: 14px; padding: 8px 0; border-top: 1px solid var(--linha); }
+.setlist-num { font-family: var(--titulo); font-weight: 700; font-size: 13px; color: var(--destaque-escuro); width: 22px; flex: none; }
+.setlist-titulo { flex: 1; min-width: 0; font-family: var(--titulo); font-weight: 700; font-size: 15px; overflow-wrap: anywhere; }
+.setlist-titulo small { font-weight: 400; color: var(--texto-3); font-size: 11px; letter-spacing: .1em; margin-left: 6px; }
+.setlist-mover { display: flex; gap: 4px; flex: none; }
+.setlist-mover button {
+  width: 34px; height: 34px; cursor: pointer; font: 700 15px var(--titulo); color: var(--texto-2);
+  background: #fff; border: 1px solid var(--linha-forte); border-radius: 3px;
+}
+.setlist-mover button:hover:not(:disabled) { border-color: var(--texto); color: var(--texto); }
+.setlist-mover button:disabled { opacity: .35; cursor: default; }
+.setlist-mover [data-tirar]:hover { color: var(--vermelho) !important; border-color: var(--vermelho) !important; }
+.setlist-rodape { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--linha); }
+.setlist-nome { flex: 1 1 240px; }
+.setlist-botoes { display: flex; gap: 8px; }
+.item-marcar { flex: none; display: grid; place-items: center; width: 26px; height: 26px; margin-top: 2px; cursor: pointer; }
+.item-marcar input { width: 20px; height: 20px; accent-color: var(--texto); cursor: pointer; margin: 0; }
+.item-arquivo.no-setlist h3 { color: var(--destaque-escuro); }
+@media (max-width: 760px) {
+  .setlist { padding: 18px 16px; }
+  .setlist-botoes { width: 100%; }
+  .setlist-botoes .botao { flex: 1; }
+  .item-beats .item-info { flex: 1 1 calc(100% - 50px); }
+  .item-beats .item-acoes { padding-left: 44px; }
+}

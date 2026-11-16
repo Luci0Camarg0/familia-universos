@@ -3,12 +3,29 @@ layout: default
 title: Beats
 scripts:
   - /assets/js/arquivos.js
+  - /assets/js/setlist.js
 ---
 <section class="pagina">
   <header class="pagina-topo">
     <h1 class="secao-titulo grande">Beats</h1>
-    <p>Instrumentais do grupo para ouvir, ensaiar e baixar.</p>
+    <p>Instrumentais do grupo para ouvir, ensaiar e baixar. Marque os beats para montar o setlist e baixe tudo numa pasta .zip.</p>
   </header>
+
+  <section class="setlist" data-setlist-painel aria-labelledby="titulo-setlist">
+    <div class="setlist-topo">
+      <h2 id="titulo-setlist" class="secao-titulo">Setlist</h2>
+      <span class="dica" data-setlist-resumo>Marque os beats na lista abaixo.</span>
+    </div>
+    <ol class="setlist-lista" data-setlist-lista></ol>
+    <div class="setlist-rodape" data-setlist-rodape hidden>
+      <label class="campo setlist-nome"><span>Nome da pasta</span><input name="nome-setlist" maxlength="80" data-setlist-nome></label>
+      <div class="setlist-botoes">
+        <button type="button" class="botao botao-linha botao-pequeno" data-setlist-limpar>Limpar</button>
+        <button type="button" class="botao" data-setlist-baixar>Baixar ZIP</button>
+      </div>
+    </div>
+    <p class="erro" data-setlist-erro hidden></p>
+  </section>
 
   <div class="arquivos"
        data-arquivos="beats"
