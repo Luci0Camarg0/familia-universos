@@ -1,0 +1,46 @@
+---
+layout: default
+title: Guias
+scripts:
+  - /assets/js/arquivos.js
+  - /assets/js/setlist.js
+---
+<section class="pagina">
+  <header class="pagina-topo">
+    <h1 class="secao-titulo grande">Guias</h1>
+    <p>As músicas do grupo em rascunho, para ouvir, ensaiar e baixar. Marque as guias para montar o setlist e baixe tudo numa pasta .zip.</p>
+  </header>
+
+  <section class="setlist" data-setlist-painel data-setlist-tipo="guias" aria-labelledby="titulo-setlist">
+    <div class="setlist-topo">
+      <h2 id="titulo-setlist" class="secao-titulo">Setlist</h2>
+      <span class="dica" data-setlist-resumo>Marque as guias na lista abaixo.</span>
+    </div>
+    <ol class="setlist-lista" data-setlist-lista></ol>
+    <div class="setlist-rodape" data-setlist-rodape hidden>
+      <label class="campo setlist-nome"><span>Nome da pasta</span><input name="nome-setlist" maxlength="80" data-setlist-nome></label>
+      <div class="setlist-botoes">
+        <button type="button" class="botao botao-linha botao-pequeno" data-setlist-limpar>Limpar</button>
+        <button type="button" class="botao" data-setlist-baixar>Baixar ZIP</button>
+      </div>
+    </div>
+    <p class="erro" data-setlist-erro hidden></p>
+  </section>
+
+  <div class="arquivos"
+       data-arquivos="guias"
+       data-secao="Guias"
+       data-pasta="arquivos/guias"
+       data-aceita=".mp3,.wav,.m4a,.aac,.ogg,.flac,audio/*"
+       data-extensoes="mp3,wav,m4a,aac,ogg,flac"
+       data-rotulo="guia">
+    <div class="arquivos-barra">
+      <button class="botao" type="button" data-adicionar>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        Adicionar guia
+      </button>
+      <span class="dica">Aceita MP3, WAV, M4A, AAC, OGG e FLAC, até 50 MB. Prefira MP3: um WAV de 4 minutos já passa de 40 MB.</span>
+    </div>
+    <div class="lista-arquivos" data-lista><p class="carregando">Carregando…</p></div>
+  </div>
+</section>

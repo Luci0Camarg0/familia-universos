@@ -1,5 +1,5 @@
 /*
- * Montador de setlist: marca beats, ordena e baixa uma pasta .zip.
+ * Montador de setlist (Beats e Guias): marca as faixas, ordena e baixa uma pasta .zip.
  * O ZIP é montado no próprio navegador (JSZip), sem precisar de chave.
  */
 (function () {
@@ -7,8 +7,10 @@
 
   var JSZIP_URL = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
   var MEMORIA = 'fu_setlist';
+  var TIPO = 'beats';
+  var UM = 'beat', VARIOS = 'beats';
 
-  var beats = [];        // todos os beats do blog
+  var beats = [];        // todas as faixas da página (beats ou guias)
   var ordem = [];        // ids escolhidos, na ordem do show
   var baixando = false;
   var el = {};
@@ -44,8 +46,8 @@
     }).join('');
 
     el.resumo.textContent = ordem.length
-      ? ordem.length + (ordem.length === 1 ? ' beat' : ' beats') + ' · ' + tamanho(total)
-      : 'Marque os beats na lista abaixo, na ordem do show.';
+      ? ordem.length + ' ' + (ordem.length === 1 ? UM : VARIOS) + ' · ' + tamanho(total)
+      : 'Marque ' + (TIPO === 'guias' ? 'as guias' : 'os beats') + ' na lista abaixo, na ordem do show.';
     el.rodape.hidden = !ordem.length;
     el.painel.classList.toggle('vazio-setlist', !ordem.length);
 
@@ -135,13 +137,15 @@
     el.nome = el.painel.querySelector('[data-setlist-nome]');
     el.baixar = el.painel.querySelector('[data-setlist-baixar]');
     el.erro = el.painel.querySelector('[data-setlist-erro]');
+    TIPO = el.painel.getAttribute('data-setlist-tipo') || 'beats';
+    if (TIPO !== 'beats') { MEMORIA = 'fu_setlist_' + TIPO; UM = 'guia'; VARIOS = 'guias'; }
 
     var salvo = ler();
     ordem = Array.isArray(salvo.ordem) ? salvo.ordem : [];
     el.nome.value = salvo.nome || ('Setlist ' + hoje());
 
     document.addEventListener('fu:arquivos', function (e) {
-      if (e.detail.tipo !== 'beats') return;
+      if (e.detail.tipo !== TIPO) return;
       beats = e.detail.itens || [];
       desenhar();
     });

@@ -42,10 +42,12 @@ Na [Agenda]({{ '/agenda/' | relative_url }}) (ou no quadro da página inicial):
 
 Datas que já passaram saem do quadro da página inicial e ficam guardadas em “Já passaram”, na página da Agenda.
 
-## Anexos e Beats
+## Anexos, Beats e Guias
 
 - Em [Anexos]({{ '/anexos/' | relative_url }}), o botão **Adicionar anexo** aceita PDF e Word (.doc e .docx).
 - Em [Beats]({{ '/beats/' | relative_url }}), o botão **Adicionar instrumental** aceita MP3, WAV, M4A, AAC, OGG e FLAC. Dá para anotar BPM, tom e quem produziu.
+- Em [Guias]({{ '/guias/' | relative_url }}), o botão **Adicionar guia** funciona igual, para as músicas em rascunho.
+- Em Beats e em Guias, marque as faixas na ordem do show e clique em **Baixar ZIP** para levar a pasta do setlist.
 - Limite de **50 MB por arquivo**. Para beats, prefira MP3.
 - O blog tem espaço para cerca de **1 GB** no total. Dá para muitas centenas de MP3, mas não para guardar todos os WAV do estúdio.
 - **Tudo que sobe fica público.** Não coloque documento com CPF, RG, dados bancários ou contrato assinado com dados pessoais.

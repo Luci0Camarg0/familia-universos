@@ -1,5 +1,5 @@
 /*
- * Anexos (PDF/Word) e Beats (áudio).
+ * Anexos (PDF/Word), Beats e Guias (áudio).
  * Os arquivos vão para arquivos/<tipo>/ no repositório e a lista fica em dados/<tipo>.json.
  */
 (function () {
@@ -29,7 +29,9 @@
 
   function Arquivos(el) {
     this.el = el;
-    this.tipo = el.getAttribute('data-arquivos');          // anexos | beats
+    this.tipo = el.getAttribute('data-arquivos');          // anexos | beats | guias
+    this.audio = this.tipo !== 'anexos';
+    this.secao = el.getAttribute('data-secao') || 'Anexos';
     this.pasta = el.getAttribute('data-pasta');
     this.aceita = el.getAttribute('data-aceita');
     this.extensoes = el.getAttribute('data-extensoes').split(',');
@@ -72,7 +74,7 @@
       var ext = (i.extensao || extensao(i.arquivo)).toUpperCase();
       var recente = agora - new Date(i.enviado_em).getTime() < 3 * 60 * 1000;
       var meta = [];
-      if (self.tipo === 'beats') {
+      if (self.audio) {
         if (i.bpm) meta.push(esc(i.bpm) + ' BPM');
         if (i.tom) meta.push('Tom ' + esc(i.tom));
         if (i.produtor) meta.push('Prod. ' + esc(i.produtor));
@@ -81,15 +83,15 @@
       if (i.tamanho) meta.push(tamanho(i.tamanho));
       if (i.enviado_em) meta.push('enviado em ' + dataBR(i.enviado_em));
 
-      h += '<li class="item-arquivo item-' + self.tipo + '">';
-      if (self.tipo === 'beats') h += '<label class="item-marcar" title="Colocar no setlist"><input type="checkbox" data-setlist="' + esc(i.id) + '"><span class="sr">Colocar ' + esc(i.titulo) + ' no setlist</span></label>';
+      h += '<li class="item-arquivo item-' + self.tipo + (self.audio ? ' item-audio' : '') + '">';
+      if (self.audio) h += '<label class="item-marcar" title="Colocar no setlist"><input type="checkbox" data-setlist="' + esc(i.id) + '"><span class="sr">Colocar ' + esc(i.titulo) + ' no setlist</span></label>';
       if (self.tipo === 'anexos') h += '<span class="item-icone ext-' + esc(ext.toLowerCase()) + '">' + ICONE_DOC + '<small>' + esc(ext) + '</small></span>';
       h += '<div class="item-info">';
       h += '<h3>' + esc(i.titulo) + '</h3>';
       if (i.descricao) h += '<p class="item-desc">' + esc(i.descricao) + '</p>';
       h += '<p class="item-meta">' + meta.join(' · ') + '</p>';
       if (recente) h += '<p class="item-novo">Acabou de subir: o arquivo fica disponível em 1 ou 2 minutos.</p>';
-      if (self.tipo === 'beats') h += '<audio controls preload="none" src="' + esc(link) + '"></audio>';
+      if (self.audio) h += '<audio controls preload="none" src="' + esc(link) + '"></audio>';
       h += '</div>';
       h += '<div class="item-acoes">';
       if (ext === 'PDF') h += '<a class="botao botao-pequeno" href="' + esc(link) + '" target="_blank" rel="noopener">Abrir</a>';
@@ -110,7 +112,7 @@
       return;
     }
     if (this.el.querySelector('.envio')) { this.el.querySelector('.envio input[type=file]').click(); return; }
-    var esc = FU.esc, beats = this.tipo === 'beats';
+    var esc = FU.esc, beats = this.audio;
     var painel = document.createElement('form');
     painel.className = 'envio';
     var h = '';
@@ -166,7 +168,7 @@
     if (!f) return falhar('Escolha um arquivo.');
     var ext = extensao(f.name);
     if (this.extensoes.indexOf(ext) === -1) return falhar('Esse tipo de arquivo não entra aqui. Aceita: ' + this.extensoes.join(', ').toUpperCase() + '.');
-    if (f.size > LIMITE) return falhar('Arquivo com ' + tamanho(f.size) + '. O limite é 50 MB' + (this.tipo === 'beats' ? ': exporte em MP3.' : '.'));
+    if (f.size > LIMITE) return falhar('Arquivo com ' + tamanho(f.size) + '. O limite é 50 MB' + (this.audio ? ': exporte em MP3.' : '.'));
 
     var titulo = painel.titulo.value.trim() || semExtensao(f.name);
     var id = novoId();
@@ -180,7 +182,7 @@
       enviado_em: new Date().toISOString(),
       descricao: painel.descricao.value.trim()
     };
-    if (this.tipo === 'beats') {
+    if (this.audio) {
       item.bpm = painel.bpm.value.trim();
       item.tom = painel.tom.value.trim();
       item.produtor = painel.produtor.value.trim();
@@ -194,7 +196,7 @@
 
     FU.arquivoParaBase64(f).then(function (b64) {
       return FU.gravar(
-        (self.tipo === 'beats' ? 'Beats' : 'Anexos') + ': adiciona ' + titulo,
+        self.secao + ': adiciona ' + titulo,
         [{ caminho: caminho, base64: b64 }],
         function () {
           return FU.lerJson(self.dados, { itens: [] }).then(function (d) {
@@ -224,7 +226,7 @@
     if (!window.confirm('Apagar “' + item.titulo + '”? O arquivo sai do blog.')) return;
     this.ocupado = true;
     var final;
-    FU.gravar((this.tipo === 'beats' ? 'Beats' : 'Anexos') + ': apaga ' + item.titulo, [], function () {
+    FU.gravar(this.secao + ': apaga ' + item.titulo, [], function () {
       return FU.lerJson(self.dados, { itens: [] }).then(function (d) {
         var itens = ((d && d.itens) || []).filter(function (i) { return i.id !== id; });
         final = itens;

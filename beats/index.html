@@ -11,7 +11,7 @@ scripts:
     <p>Instrumentais do grupo para ouvir, ensaiar e baixar. Marque os beats para montar o setlist e baixe tudo numa pasta .zip.</p>
   </header>
 
-  <section class="setlist" data-setlist-painel aria-labelledby="titulo-setlist">
+  <section class="setlist" data-setlist-painel data-setlist-tipo="beats" aria-labelledby="titulo-setlist">
     <div class="setlist-topo">
       <h2 id="titulo-setlist" class="secao-titulo">Setlist</h2>
       <span class="dica" data-setlist-resumo>Marque os beats na lista abaixo.</span>
@@ -29,6 +29,7 @@ scripts:
 
   <div class="arquivos"
        data-arquivos="beats"
+       data-secao="Beats"
        data-pasta="arquivos/beats"
        data-aceita=".mp3,.wav,.m4a,.aac,.ogg,.flac,audio/*"
        data-extensoes="mp3,wav,m4a,aac,ogg,flac"
